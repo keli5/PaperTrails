@@ -1,0 +1,19 @@
+name: PaperTrails
+version: 0.0.1
+main: io.github.keli5.papertrails.PaperTrails
+description: Dead simple particle trails for Paper
+author: keli5
+website: https://keli5.github.io/
+api-version: 1.19
+
+permissions:
+  papertrails.preview:
+      description: "Allow users to preview particle types"
+      default: op
+
+
+commands:
+  previewtrail:
+    description: "Preview a particle effect"
+    usage: "/previewtrail <particle> [mode]"
+    permission: papertrails.preview
