@@ -10,10 +10,26 @@ permissions:
   papertrails.preview:
       description: "Allow users to preview particle types"
       default: op
+  papertrails.listparticles:
+      description: "Allow users to list particle types"
+      default: op
+  papertrails.listmodes:
+      description: "Allow users to list particle modes"
+      default: op
 
 
 commands:
   previewtrail:
     description: "Preview a particle effect"
-    usage: "/previewtrail <particle> [mode]"
+    usage: "/previewtrail <particle> <mode>"
     permission: papertrails.preview
+
+  listparticles:
+    description: "See a list of allowed particle types"
+    usage: "/listparticles"
+    permission: papertrails.listparticles
+
+  listmodes:
+    description: "See a list of allowed particle modes"
+    usage: "/listmodes"
+    permission: papertrails.listmodes
