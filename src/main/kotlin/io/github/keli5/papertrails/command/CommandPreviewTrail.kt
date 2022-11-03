@@ -1,38 +1,34 @@
 package io.github.keli5.papertrails.command
 
-import io.github.keli5.papertrails.ParticleMode
+import io.github.keli5.papertrails.constant.ParticleMode
 import io.github.keli5.papertrails.constant.acceptableParticles
-import io.github.keli5.papertrails.particlePosition
+import io.github.keli5.papertrails.constant.particlePosition
+import org.bukkit.Particle
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 class CommandPreviewTrail : CommandExecutor {
-    override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
+    override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>?): Boolean {
         if (sender !is Player) {
             sender.sendMessage("This command must be run by a player.")
-            return true
+            return false
         }
-        if (args[0] == "" || args[1] == "") return false
-        if (args[0] !in acceptableParticles.keys) {
-            sender.sendMessage("Invalid particle type ${args[0]}. Try /listparticles.")
-            return true
-        }
-        if ((ParticleMode from args[1]) == null) {
-            sender.sendMessage("Invalid particle mode ${args[1]}. Try /listmodes.")
-            return true
-        }
-        val particleType = acceptableParticles[args[0]]
-        val particleMode = (ParticleMode from args[1])
         val player: Player = sender
+        val particleType: Particle? = acceptableParticles[args?.getOrNull(0)]
+        val particleMode: ParticleMode? = ParticleMode from args?.getOrNull(1)
 
-
-        if (particleType != null && particleMode != null) {
+        return if (particleType == null) {
+            player.sendMessage("Invalid particle type. Try /listparticles.")
+            false
+        } else if (particleMode == null) {
+            player.sendMessage("Invalid particle mode. Try /listmodes.")
+            false
+        } else {
             player.spawnParticle(particleType, particlePosition(particleMode, player.location), 3)
-            return true
+            true
         }
 
-        return false
     }
 }
