@@ -4,14 +4,18 @@ import org.bukkit.Location
 import org.bukkit.World
 import java.util.Calendar
 import kotlin.math.sin
+const val PLAYER_HEIGHT_OFFSET = 2f;
 
 fun aboveHead(world: World, x: Double, y: Double, z: Double): Location {
-    return Location(world, x, y+2, z)
+    return Location(world, x, y + PLAYER_HEIGHT_OFFSET, z)
 }
 fun aboveHeadBounce(world: World, x: Double, y: Double, z: Double): Location {
-    return Location(world, x,
-                 y + (sin(Calendar.getInstance().timeInMillis.toDouble() / 1000) * 0.5) + 0.5 + 2,
-                    z)  // time divided by 1000 for more continuous sin output
+    return Location(
+        world,
+        x,
+        y + (sin(Calendar.getInstance().timeInMillis.toDouble() / 1000) * 0.5) + 0.5 + PLAYER_HEIGHT_OFFSET,
+        z // ^^ : time divided by 1000 for more continuous sin output
+    )
 }
 
 
